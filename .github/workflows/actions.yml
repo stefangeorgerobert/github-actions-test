@@ -1,6 +1,20 @@
 name: Actions Workflow
 
-on: [push]
+on:
+    push:
+        branches:
+          - master
+        # branches-ignore: -run on all except :
+
+        tags:
+            - v1.*
+        # paths:         -> run only when .js file is changed
+        #    - "**.js"
+        #    - "!filename.js" ingore changes from this file
+
+   # schedule        -> run worckflow every 5 min (minim)
+   # pull_request
+   # repository_dispatch -> external trigger
 
 jobs:
     run-github-actions:
