@@ -7,8 +7,17 @@ jobs:
       matrix:
         os: [macos-latest, ubuntu-latest, windows-latest]
         node_version: [6,8,10]
+        include:
+          - os: ubuntu-latest
+            node_version: 8
+            is_ubuntu_8: "true"  #include extra variabile for ubuntu and node: 8
+        exclude:
+          - os: ubuntu-latest
+            node-version: 6
       fail-fast: false    # default true if on job failes stop all
     runs-on: ${{ matrix.os }}
+    env:
+      IS_UBUNTU_8: ${{ matrix.is_ubuntu_8 }}
     steps:
       - name: Log node version
         run: node -v
