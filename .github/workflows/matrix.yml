@@ -13,7 +13,7 @@ jobs:
             is_ubuntu_8: "true"  #include extra variabile for ubuntu and node: 8
         exclude:
           - os: ubuntu-latest
-            node-version: 10
+            node_version: 10
       fail-fast: false    # default true if on job failes stop all
     runs-on: ${{ matrix.os }}
     env:
