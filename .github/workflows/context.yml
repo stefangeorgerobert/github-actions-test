@@ -1,5 +1,5 @@
 name: Context
-on: push
+on: [push, pull_request]
 
 jobs:
   functions:
@@ -13,16 +13,19 @@ jobs:
           echo ${{ format('hello {0} {1}', 'World', '!') }}
   one:
     runs-on: ubuntu-latest
+    if: github.event_name == 'push'
     steps:
       - name: Dump GitHub context
         env:
           GITHUB_CONTEXT: ${{ toJSON(github) }}
-        run: echo "$GITHUB_CONTEXT"
+        run: eccho "$GITHUB_CONTEXT"
       - name: Dump job context
+        if: failure() #prev step has failed result
         env:
           JOB_CONTEXT: ${{ toJSON(job) }}
         run: echo "$JOB_CONTEXT"
       - name: Dump steps context
+        if: always()
         env:
           STEPS_CONTEXT: ${{ toJSON(steps) }}
         run: echo "$STEPS_CONTEXT"
